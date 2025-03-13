@@ -17,8 +17,7 @@ const Login = () => {
                         <input
                             type="text"
                             placeholder="Username"
-                            class="grow"
-                            className="w-full"
+                            className="w-full grow"
                             required
                         />
                     </label>
@@ -28,8 +27,7 @@ const Login = () => {
                         <input
                             type="password"
                             placeholder="Password"
-                            class="grow"
-                            className="w-full"
+                            className="w-full grow"
                             required
                         />
                     </label>
