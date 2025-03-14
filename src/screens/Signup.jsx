@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
 import { IoKeySharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
+
+    const [signupData, setSignupData] = useState({
+        fullname: "",
+        username: "",
+        password: "",
+        confirmPassword: ""
+    });
+
+    const handleChange = (e) => {
+        setSignupData({
+            ...signupData,
+            [e.target.name]: e.target.value
+        });
+    };
+
     return (
         <div className="flex justify-center items-center min-h-screen p-6">
             <div className="min-w-[30rem] bg-base-300 flex flex-col gap-5 p-6 rounded-lg">
@@ -17,8 +32,10 @@ const SignUp = () => {
                         <BiUserCircle />
                         <input
                             type="text"
+                            name="fullname"
                             placeholder="Fullname"
                             className="w-full grow"
+                            onChange={handleChange}
                             required
                         />
                     </label>
@@ -26,8 +43,10 @@ const SignUp = () => {
                         <FaUser />
                         <input
                             type="text"
+                            name="username"
                             placeholder="Username"
                             className="w-full grow"
+                            onChange={handleChange}
                             required
                         />
                     </label>
@@ -36,8 +55,10 @@ const SignUp = () => {
                         <IoKeySharp />
                         <input
                             type="password"
+                            name="password"
                             placeholder="Password"
                             className="w-full grow"
+                            onChange={handleChange}
                             required
                         />
                     </label>
@@ -46,8 +67,10 @@ const SignUp = () => {
                         <IoKeySharp />
                         <input
                             type="password"
+                            name="confirmPassword"
                             placeholder="Confirm Password"
                             className="w-full grow"
+                            onChange={handleChange}
                             required
                         />
                     </label>
