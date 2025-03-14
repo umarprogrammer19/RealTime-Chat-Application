@@ -19,33 +19,6 @@ const Sidebar = () => {
                 <User />
                 <User />
                 <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
             </div>
             {/* Footer */}
             <div className='flex items-center justify-between px-3 py-2'>
