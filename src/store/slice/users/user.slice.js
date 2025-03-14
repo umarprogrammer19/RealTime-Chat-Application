@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loginUserThunk } from "./user.thunk";
 
 export const userSlice = createSlice({
     name: "user",
@@ -6,8 +7,8 @@ export const userSlice = createSlice({
         isAuthenticated: false,
     },
     reducers: {},
-    extraReducers: (builder) => { 
-        
+    extraReducers: (builder) => {
+        builder.addCase(loginUserThunk.fulfilled, (state, action) => { })
     }
 });
 
