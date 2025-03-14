@@ -1,3 +1,3 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const Login = createAsyncThunk("user/login", async() = {});
+export const loginUserThunk = createAsyncThunk("user/login", async() = {});

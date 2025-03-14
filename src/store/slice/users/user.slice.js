@@ -5,7 +5,10 @@ export const userSlice = createSlice({
     initialState: {
         isAuthenticated: false,
     },
-    reducers: {}
+    reducers: {},
+    extraReducers: (builder) => { 
+        
+    }
 });
 
 export const { } = userSlice.actions;
