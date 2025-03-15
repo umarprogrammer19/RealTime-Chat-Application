@@ -4,7 +4,7 @@ import Message from './Message'
 
 const MessageContainer = () => {
     return (
-        <div className='w-full h-screen'>
+        <div className='w-full h-screen flex flex-col'>
             {/* User Detail */}
             <div className='p-3 border-b border-b-white/20'>
                 <User />
@@ -14,7 +14,13 @@ const MessageContainer = () => {
                 <Message />
                 <Message />
             </div>
-            <div></div>
+            <div className='w-full p-2'>
+                <input
+                    type="text"
+                    placeholder="Type a message here"
+                    className='input input-bordered input-primary w-full'
+                />
+            </div>
         </div>
     )
 }
