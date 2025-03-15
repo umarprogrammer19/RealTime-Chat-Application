@@ -10,11 +10,13 @@ const MessageContainer = () => {
             <div className='p-3 border-b border-b-white/20'>
                 <User />
             </div>
+            {/* Message Part */}
             <div className='h-full overflow-y-auto p-4'>
                 <Message />
                 <Message />
                 <Message />
             </div>
+            {/* Send Message Input */}
             <div className='w-full p-2 flex gap-2'>
                 <input
                     type="text"
