@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { IoKeySharp } from "react-icons/io5";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { loginUserThunk } from "../store/slice/users/user.thunk";
 
 const Login = () => {
 
@@ -11,6 +13,8 @@ const Login = () => {
         password: ""
     });
 
+    const dispatch = useDispatch();
+
     const handleChange = (e) => {
         setLoginData({
             ...loginData,
@@ -18,9 +22,10 @@ const Login = () => {
         });
     };
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
-        toast.success("Login Successfull")
+        dispatch(loginUserThunk(loginData));
+        toast.success("Login Successfull");
     }
 
     return (

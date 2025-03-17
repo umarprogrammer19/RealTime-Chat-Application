@@ -8,7 +8,15 @@ export const userSlice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(loginUserThunk.fulfilled, (state, action) => { })
+        builder.addCase(loginUserThunk.pending, (state, action) => {
+            console.log("pending");
+        });
+        builder.addCase(loginUserThunk.fulfilled, (state, action) => {
+            console.log("fullfilled");
+        });
+        builder.addCase(loginUserThunk.rejected, (state, action) => {
+            console.log("rejected");
+        });
     }
 });
 
