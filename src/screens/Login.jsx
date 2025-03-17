@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { IoKeySharp } from "react-icons/io5";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { loginUserThunk } from "../store/slice/users/user.thunk";
 
 const Login = () => {
 
@@ -10,12 +13,20 @@ const Login = () => {
         password: ""
     });
 
+    const dispatch = useDispatch();
+
     const handleChange = (e) => {
         setLoginData({
             ...loginData,
             [e.target.name]: e.target.value
         });
     };
+
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        dispatch(loginUserThunk(loginData));
+        toast.success("Login Successfull");
+    }
 
     return (
         <div className="flex justify-center items-center min-h-screen p-6">
@@ -24,7 +35,7 @@ const Login = () => {
                     Login To Your Account
                 </h2>
 
-                <form className="flex flex-col gap-5">
+                <form className="flex flex-col gap-5" onSubmit={handleLogin}>
                     <label className="input input-bordered flex items-center gap-2 w-full">
                         <FaUser />
                         <input

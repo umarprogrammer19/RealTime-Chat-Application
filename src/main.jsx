@@ -7,6 +7,7 @@ import Login from './screens/Login';
 import Signup from './screens/Signup';
 import { store } from './store/store';
 import { Provider } from 'react-redux';
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([{
   path: "/",
