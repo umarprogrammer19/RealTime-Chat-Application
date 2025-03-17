@@ -1,8 +1,14 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 const Layout = () => {
-    return <Outlet />
+    return (
+        <>
+            <ToastContainer />
+            <Outlet />
+        </>
+    )
 }
 
 export default Layout
