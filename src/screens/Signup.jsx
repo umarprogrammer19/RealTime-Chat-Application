@@ -37,7 +37,7 @@ const SignUp = () => {
         event.preventDefault();
         if (signupData.password !== signupData.confirmPassword) return toast.error("Password and confirm password are not same");
         const response = await dispatch(registerUserThunk(signupData));
-        if (response.payload.success) navigate("/login");
+        if (response.payload.success) navigate("/");
     }
 
 
