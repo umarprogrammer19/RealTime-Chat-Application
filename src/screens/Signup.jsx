@@ -2,23 +2,44 @@ import React, { useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
 import { IoKeySharp } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { registerUserThunk } from "../store/slice/users/user.thunk";
 
 const SignUp = () => {
 
+    // For Setting Signup Data
     const [signupData, setSignupData] = useState({
         fullname: "",
         username: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        gender: "male"
     });
 
+    // Redux State
+    const dispatch = useDispatch();
+
+    // Navigation
+    const navigate = useNavigate();
+
+    // For Setting The Values In The State After Input Change
     const handleChange = (e) => {
         setSignupData({
             ...signupData,
             [e.target.name]: e.target.value
         });
     };
+
+    // Handle Signup
+    const handleRegister = async (event) => {
+        event.preventDefault();
+        if (signupData.password !== signupData.confirmPassword) return toast.error("Password and confirm password are not same");
+        const response = await dispatch(registerUserThunk(signupData));
+        if (response.payload.success) navigate("/");
+    }
+
 
     return (
         <div className="flex justify-center items-center min-h-screen p-6">
@@ -27,7 +48,7 @@ const SignUp = () => {
                     Register Your Account
                 </h2>
 
-                <form className="flex flex-col gap-5">
+                <form onSubmit={handleRegister} className="flex flex-col gap-5">
                     <label className="input input-bordered flex items-center gap-2 w-full">
                         <BiUserCircle />
                         <input
@@ -36,7 +57,6 @@ const SignUp = () => {
                             placeholder="Fullname"
                             className="w-full grow"
                             onChange={handleChange}
-                            required
                         />
                     </label>
                     <label className="input input-bordered flex items-center gap-2 w-full">
@@ -47,7 +67,6 @@ const SignUp = () => {
                             placeholder="Username"
                             className="w-full grow"
                             onChange={handleChange}
-                            required
                         />
                     </label>
 
@@ -59,7 +78,6 @@ const SignUp = () => {
                             placeholder="Password"
                             className="w-full grow"
                             onChange={handleChange}
-                            required
                         />
                     </label>
 
@@ -71,9 +89,33 @@ const SignUp = () => {
                             placeholder="Confirm Password"
                             className="w-full grow"
                             onChange={handleChange}
-                            required
                         />
                     </label>
+
+                    <div className="input input-bordered flex items-center gap-2 w-full">
+                        {/* Male */}
+                        <label className="cursor-pointer" htmlFor="male">Male</label>
+                        <input
+                            type="radio"
+                            id="male"
+                            name="gender"
+                            value={"male"}
+                            className="radio radio-primary"
+                            onChange={handleChange}
+                            defaultChecked
+                        />
+
+                        {/* Female */}
+                        <label className="cursor-pointer" htmlFor="female">Female</label>
+                        <input
+                            type="radio"
+                            id="female"
+                            name="gender"
+                            value={"female"}
+                            className="radio radio-primary"
+                            onChange={handleChange}
+                        />
+                    </div>
 
                     <button type="submit" className="btn btn-primary">
                         SignUp
