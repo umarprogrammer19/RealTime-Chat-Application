@@ -1,8 +1,23 @@
-import React from 'react'
+import React from 'react';
 import { IoSearch } from 'react-icons/io5';
+import { useDispatch } from 'react-redux';
+import { logoutUserThunk } from '../store/slice/users/user.thunk';
 import User from './User';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+    // Redux Hook
+    const dispatch = useDispatch();
+
+    // Navigation
+    const navigate = useNavigate();
+
+    // Logout Function
+    const handleLogout = async (event) => {
+        event.preventDefault();
+        const response = await dispatch(logoutUserThunk());
+        if (response.payload.success) navigate("/login");
+    }
     return (
         <div className='max-w-[20rem] h-screen w-full flex flex-col border-r border-r-white/10'>
             {/* Gupshup Heading */}
@@ -29,7 +44,7 @@ const Sidebar = () => {
                     </div>
                 </div>
                 {/* Logout Button */}
-                <button className='btn btn-primary btn-sm px-4'>Logout</button>
+                <button className='btn btn-primary btn-sm px-4' onClick={handleLogout}>Logout</button>
             </div>
         </div>
     )
