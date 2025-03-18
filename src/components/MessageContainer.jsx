@@ -2,13 +2,15 @@ import React from 'react'
 import User from './User'
 import Message from './Message'
 import { IoIosSend } from 'react-icons/io'
+import { useSelector } from 'react-redux'
 
 const MessageContainer = () => {
+    const { selectedUser } = useSelector(state => state.userReducer);
     return (
         <div className='w-full h-screen flex flex-col'>
             {/* User Detail */}
             <div className='p-3 border-b border-b-white/20'>
-                <User />
+                <User user={selectedUser} />
             </div>
             {/* Message Part */}
             <div className='h-full overflow-y-auto p-4'>

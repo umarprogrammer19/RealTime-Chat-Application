@@ -1,14 +1,14 @@
 import React from 'react';
 import { IoSearch } from 'react-icons/io5';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logoutUserThunk } from '../store/slice/users/user.thunk';
 import User from './User';
-import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
     // Redux Hook
     const dispatch = useDispatch();
-
+    const { otherUsers } = useSelector(state => state.userReducer);
     // Navigation
     const navigate = useNavigate();
 
@@ -18,6 +18,7 @@ const Sidebar = () => {
         const response = await dispatch(logoutUserThunk());
         if (response.payload.success) navigate("/login");
     }
+
     return (
         <div className='max-w-[20rem] h-screen w-full flex flex-col border-r border-r-white/10'>
             {/* Gupshup Heading */}
@@ -30,10 +31,10 @@ const Sidebar = () => {
                 </label>
             </div>
             {/* Rendered Users */}
-            <div className='h-full overflow-y-auto px-3'>
-                <User />
-                <User />
-                <User />
+            <div className='h-full overflow-y-auto px-3 flex flex-col gap-2'>
+                {otherUsers?.map((user) => {
+                    return <User key={user._id} user={user} />
+                })}
             </div>
             {/* Footer */}
             <div className='flex items-center justify-between px-3 py-2'>
