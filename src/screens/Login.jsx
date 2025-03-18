@@ -25,7 +25,6 @@ const Login = () => {
     const handleLogin = async (event) => {
         event.preventDefault();
         dispatch(loginUserThunk(loginData));
-        toast.success("Login Successfull");
     }
 
     return (

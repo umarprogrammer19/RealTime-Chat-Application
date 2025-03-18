@@ -8,10 +8,10 @@ export const loginUserThunk = createAsyncThunk("user/login", async ({ username, 
             username,
             password
         });
-        console.log(response);
         return response.data;
     } catch (error) {
-        toast.error(error.message);
-        // return rejectWithValue(error.message);
+        const errorOutput = error?.response?.data?.message;
+        toast.error(errorOutput);
+        return rejectWithValue(errorOutput);
     }
 });
