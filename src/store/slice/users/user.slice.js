@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { getUserProfileThunk, loginUserThunk, logoutUserThunk, registerUserThunk } from "./user.thunk";
+import { getOtherUserProfileThunk, getUserProfileThunk, loginUserThunk, logoutUserThunk, registerUserThunk } from "./user.thunk";
 
 const initialState = {
     isAuthenticated: false,
     screenLoading: true,
     userProfile: null,
     buttonLoading: false,
+    otherUsers: null,
 }
 
 export const userSlice = createSlice({
@@ -19,10 +20,10 @@ export const userSlice = createSlice({
             state.buttonLoading = true;
         });
         builder.addCase(loginUserThunk.fulfilled, (state, action) => {
-            state.userProfile = action.payload.user;
+            state.userProfile = action.payload?.user;
             state.buttonLoading = false;
             state.isAuthenticated = true;
-            toast.success(action.payload.message);
+            toast.success(action.payload?.message);
         });
         builder.addCase(loginUserThunk.rejected, (state, action) => {
             state.buttonLoading = false;
@@ -32,10 +33,10 @@ export const userSlice = createSlice({
             state.buttonLoading = true;
         });
         builder.addCase(registerUserThunk.fulfilled, (state, action) => {
-            state.userProfile = action.payload.newUser;
+            state.userProfile = action.payload?.newUser;
             state.buttonLoading = false;
             state.isAuthenticated = true;
-            toast.success(action.payload.message);
+            toast.success(action.payload?.message);
         });
         builder.addCase(registerUserThunk.rejected, (state, action) => {
             state.buttonLoading = false;
@@ -48,23 +49,32 @@ export const userSlice = createSlice({
             state.userProfile = null;
             state.isAuthenticated = false;
             state.buttonLoading = false;
-            toast.success(action.payload.message);
+            toast.success(action.payload?.message);
         });
         builder.addCase(logoutUserThunk.rejected, (state, action) => {
             state.buttonLoading = false;
         });
         // Get User Profile
         builder.addCase(getUserProfileThunk.fulfilled, (state, action) => {
-            state.userProfile = action.payload.user || null;
+            state.userProfile = action.payload?.profile || null;
             state.isAuthenticated = true;
             state.screenLoading = false;
         });
-
         builder.addCase(getUserProfileThunk.rejected, (state, action) => {
             state.screenLoading = true;
             state.isAuthenticated = false;
         });
-
+        // Get Other User Profiles
+        builder.addCase(getOtherUserProfileThunk.pending, (state, action) => {
+            state.screenLoading = true;
+        });
+        builder.addCase(getOtherUserProfileThunk.fulfilled, (state, action) => {
+            state.screenLoading = false;
+            state.otherUsers = action.payload?.otherUsers;
+        });
+        builder.addCase(getOtherUserProfileThunk.rejected, (state, action) => {
+            state.screenLoading = true;
+        });
     }
 });
 
