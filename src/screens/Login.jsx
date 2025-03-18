@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { IoKeySharp } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUserThunk } from "../store/slice/users/user.thunk";
 
@@ -15,9 +15,14 @@ const Login = () => {
 
     // For Calling The Redux Function
     const dispatch = useDispatch();
-
+    const { isAuthenticated } = useSelector(state => state.userReducer);
     // Navigation
     const navigate = useNavigate();
+
+    // For Checking Data 
+    useEffect(() => {
+        if (isAuthenticated) navigate("/")
+    }, [isAuthenticated])
 
     // For Getting Values On The Change Of The Input
     const handleChange = (e) => {
