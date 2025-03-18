@@ -1,6 +1,6 @@
 import React from 'react';
 import { IoSearch } from 'react-icons/io5';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutUserThunk } from '../store/slice/users/user.thunk';
 import User from './User';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Sidebar = () => {
     // Redux Hook
     const dispatch = useDispatch();
-
+    const { otherUsers } = useSelector(state => state.userReducer);
     // Navigation
     const navigate = useNavigate();
 
@@ -31,9 +31,12 @@ const Sidebar = () => {
             </div>
             {/* Rendered Users */}
             <div className='h-full overflow-y-auto px-3'>
+                {otherUsers?.map((user) => {
+                    return <User key={user._id} user={user} />
+                })}
+                {/* <User />
                 <User />
-                <User />
-                <User />
+                <User /> */}
             </div>
             {/* Footer */}
             <div className='flex items-center justify-between px-3 py-2'>
