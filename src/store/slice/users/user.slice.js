@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { loginUserThunk, logoutUserThunk, registerUserThunk } from "./user.thunk";
+import { getUserProfileThunk, loginUserThunk, logoutUserThunk, registerUserThunk } from "./user.thunk";
 
 const initialState = {
     isAuthenticated: false,
-    screenLoading: false,
+    screenLoading: true,
     userProfile: null,
     buttonLoading: false,
 }
@@ -21,6 +21,7 @@ export const userSlice = createSlice({
         builder.addCase(loginUserThunk.fulfilled, (state, action) => {
             state.userProfile = action.payload.user;
             state.buttonLoading = false;
+            state.isAuthenticated = true;
             toast.success(action.payload.message);
         });
         builder.addCase(loginUserThunk.rejected, (state, action) => {
@@ -33,6 +34,7 @@ export const userSlice = createSlice({
         builder.addCase(registerUserThunk.fulfilled, (state, action) => {
             state.userProfile = action.payload.newUser;
             state.buttonLoading = false;
+            state.isAuthenticated = true;
             toast.success(action.payload.message);
         });
         builder.addCase(registerUserThunk.rejected, (state, action) => {
@@ -50,7 +52,17 @@ export const userSlice = createSlice({
         });
         builder.addCase(logoutUserThunk.rejected, (state, action) => {
             state.buttonLoading = false;
-        })
+        });
+        // Get User Profile
+        builder.addCase(getUserProfileThunk.fulfilled, (state, action) => {
+            // state.userProfile = null;
+            state.isAuthenticated = true;
+            state.screenLoading = false;
+            console.log(action.payload);
+        });
+        builder.addCase(getUserProfileThunk.rejected, (state, action) => {
+            state.screenLoading = true;
+        });
     }
 });
 

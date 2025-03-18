@@ -8,13 +8,17 @@ import Signup from './screens/Signup';
 import { store } from './store/store';
 import { Provider } from 'react-redux';
 import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from './components/ProtectedRoute';
 
 const router = createBrowserRouter([{
   path: "/",
   element: <Layout />,
   children: [{
     path: "",
-    element: <Home />
+    element:
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
   }, {
     path: "/login",
     element: <Login />
