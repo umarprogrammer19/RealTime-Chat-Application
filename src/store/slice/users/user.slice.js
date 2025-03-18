@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUserThunk } from "./user.thunk";
+import { loginUserThunk, registerUserThunk } from "./user.thunk";
 import { toast } from "react-toastify";
 
 const initialState = {
@@ -14,6 +14,7 @@ export const userSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+        // Login Cases
         builder.addCase(loginUserThunk.pending, (state, action) => {
             state.buttonLoading = true;
         });
@@ -25,6 +26,18 @@ export const userSlice = createSlice({
         builder.addCase(loginUserThunk.rejected, (state, action) => {
             state.buttonLoading = false;
         });
+        // Register Cases
+        builder.addCase(registerUserThunk.pending, (state, action) => {
+            state.buttonLoading = true;
+        });
+        builder.addCase(registerUserThunk.fulfilled, (state, action) => {
+            state.userProfile = action.payload.newUser;
+            state.buttonLoading = false;
+            toast.success(action.payload.message);
+        });
+        builder.addCase(registerUserThunk.rejected, (state, action) => {
+            state.buttonLoading = false;
+        })
     }
 });
 

@@ -15,3 +15,20 @@ export const loginUserThunk = createAsyncThunk("user/login", async ({ username, 
         return rejectWithValue(errorOutput);
     }
 });
+
+export const registerUserThunk = createAsyncThunk("user/register", async ({ fullname, username, password, gender, avatar }, { rejectWithValue }) => {
+    try {
+        const response = await axiosInstance.post("/v1/user/register", {
+            fullname,
+            username,
+            password,
+            gender,
+            avatar: avatar && avatar,
+        });
+        return response.data;
+    } catch (error) {
+        const errorOutput = error?.response?.data?.message;
+        toast.error(errorOutput);
+        return rejectWithValue(errorOutput)
+    }
+});
