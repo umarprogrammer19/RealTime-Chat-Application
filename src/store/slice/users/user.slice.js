@@ -1,21 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginUserThunk } from "./user.thunk";
+import { toast } from "react-toastify";
+
+const initialState = {
+    isAuthenticated: false,
+    screenLoading: false,
+    userProfile: null,
+    buttonLoading: false,
+}
 
 export const userSlice = createSlice({
     name: "user",
-    initialState: {
-        isAuthenticated: false,
-    },
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(loginUserThunk.pending, (state, action) => {
-            console.log("pending");
+            state.buttonLoading = true;
         });
         builder.addCase(loginUserThunk.fulfilled, (state, action) => {
-            console.log("fullfilled");
+            state.userProfile = action.payload.user;
+            state.buttonLoading = false;
+            toast.success(action.payload.message);
         });
         builder.addCase(loginUserThunk.rejected, (state, action) => {
-            console.log("rejected");
+            state.buttonLoading = false;
         });
     }
 });
