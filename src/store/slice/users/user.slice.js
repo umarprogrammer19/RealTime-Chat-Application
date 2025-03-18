@@ -55,14 +55,16 @@ export const userSlice = createSlice({
         });
         // Get User Profile
         builder.addCase(getUserProfileThunk.fulfilled, (state, action) => {
-            // state.userProfile = null;
+            state.userProfile = action.payload.user || null;
             state.isAuthenticated = true;
             state.screenLoading = false;
-            console.log(action.payload);
         });
+
         builder.addCase(getUserProfileThunk.rejected, (state, action) => {
             state.screenLoading = true;
+            state.isAuthenticated = false;
         });
+
     }
 });
 

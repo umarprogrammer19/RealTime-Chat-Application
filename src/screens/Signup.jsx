@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
 import { IoKeySharp } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { registerUserThunk } from "../store/slice/users/user.thunk";
@@ -20,9 +20,15 @@ const SignUp = () => {
 
     // Redux State
     const dispatch = useDispatch();
+    const { isAuthenticated } = useSelector(state => state.userReducer);
 
     // Navigation
     const navigate = useNavigate();
+
+    // For Checking Data 
+    useEffect(() => {
+        if (isAuthenticated) navigate("/")
+    }, [isAuthenticated]);
 
     // For Setting The Values In The State After Input Change
     const handleChange = (e) => {
