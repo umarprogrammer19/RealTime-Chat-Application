@@ -2,7 +2,7 @@ import React from 'react'
 
 const User = ({ user }) => {
     return (
-        <div className='flex gap-5 items-center'>
+        <div className='flex gap-5 items-center hover:bg-gray-700 p-1 cursor-pointer'>
             <div className="avatar avatar-online">
                 <div className="w-12 rounded-full">
                     <img src={user?.avatar || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"} />

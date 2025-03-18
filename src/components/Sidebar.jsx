@@ -30,7 +30,7 @@ const Sidebar = () => {
                 </label>
             </div>
             {/* Rendered Users */}
-            <div className='h-full overflow-y-auto px-3'>
+            <div className='h-full overflow-y-auto px-3 flex flex-col gap-2'>
                 {otherUsers?.map((user) => {
                     return <User key={user._id} user={user} />
                 })}
