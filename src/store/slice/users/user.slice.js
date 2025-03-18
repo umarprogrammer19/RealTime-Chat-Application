@@ -4,7 +4,7 @@ import { getUserProfileThunk, loginUserThunk, logoutUserThunk, registerUserThunk
 
 const initialState = {
     isAuthenticated: false,
-    screenLoading: false,
+    screenLoading: true,
     userProfile: null,
     buttonLoading: false,
 }
@@ -54,9 +54,6 @@ export const userSlice = createSlice({
             state.buttonLoading = false;
         });
         // Get User Profile
-        builder.addCase(getUserProfileThunk.pending, (state, action) => {
-            state.screenLoading = true;
-        });
         builder.addCase(getUserProfileThunk.fulfilled, (state, action) => {
             // state.userProfile = null;
             state.isAuthenticated = true;
@@ -64,7 +61,7 @@ export const userSlice = createSlice({
             console.log(action.payload);
         });
         builder.addCase(getUserProfileThunk.rejected, (state, action) => {
-            state.screenLoading = false;
+            state.screenLoading = true;
         });
     }
 });
