@@ -1,9 +1,9 @@
 import React from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logoutUserThunk } from '../store/slice/users/user.thunk';
 import User from './User';
-import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
     // Redux Hook
@@ -18,6 +18,7 @@ const Sidebar = () => {
         const response = await dispatch(logoutUserThunk());
         if (response.payload.success) navigate("/login");
     }
+
     return (
         <div className='max-w-[20rem] h-screen w-full flex flex-col border-r border-r-white/10'>
             {/* Gupshup Heading */}
@@ -34,9 +35,6 @@ const Sidebar = () => {
                 {otherUsers?.map((user) => {
                     return <User key={user._id} user={user} />
                 })}
-                {/* <User />
-                <User />
-                <User /> */}
             </div>
             {/* Footer */}
             <div className='flex items-center justify-between px-3 py-2'>

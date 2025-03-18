@@ -8,12 +8,17 @@ const initialState = {
     userProfile: null,
     buttonLoading: false,
     otherUsers: null,
+    selectedUser: null,
 }
 
 export const userSlice = createSlice({
     name: "user",
     initialState,
-    reducers: {},
+    reducers: {
+        setSelectedUser: (state, action) => {
+            state.selectedUser = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         // Login Cases
         builder.addCase(loginUserThunk.pending, (state, action) => {
@@ -78,6 +83,6 @@ export const userSlice = createSlice({
     }
 });
 
-export const { } = userSlice.actions;
+export const { setSelectedUser } = userSlice.actions;
 
 export default userSlice.reducer;
