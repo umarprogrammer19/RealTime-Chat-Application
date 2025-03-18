@@ -21,6 +21,7 @@ export const userSlice = createSlice({
         builder.addCase(loginUserThunk.fulfilled, (state, action) => {
             state.userProfile = action.payload.user;
             state.buttonLoading = false;
+            state.isAuthenticated = true;
             toast.success(action.payload.message);
         });
         builder.addCase(loginUserThunk.rejected, (state, action) => {
@@ -33,6 +34,7 @@ export const userSlice = createSlice({
         builder.addCase(registerUserThunk.fulfilled, (state, action) => {
             state.userProfile = action.payload.newUser;
             state.buttonLoading = false;
+            state.isAuthenticated = true;
             toast.success(action.payload.message);
         });
         builder.addCase(registerUserThunk.rejected, (state, action) => {
