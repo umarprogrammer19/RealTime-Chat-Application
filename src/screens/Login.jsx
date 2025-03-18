@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { IoKeySharp } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUserThunk } from "../store/slice/users/user.thunk";
 
 const Login = () => {
@@ -16,6 +16,9 @@ const Login = () => {
     // For Calling The Redux Function
     const dispatch = useDispatch();
 
+    // Navigation
+    const navigate = useNavigate();
+
     // For Getting Values On The Change Of The Input
     const handleChange = (e) => {
         setLoginData({
@@ -27,7 +30,8 @@ const Login = () => {
     // For Loggin In
     const handleLogin = async (event) => {
         event.preventDefault();
-        dispatch(loginUserThunk(loginData));
+        const response = await dispatch(loginUserThunk(loginData));
+        if (response?.payload?.success) navigate("/");
     }
 
     // User Interface

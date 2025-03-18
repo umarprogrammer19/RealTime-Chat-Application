@@ -3,7 +3,7 @@ import { BiUserCircle } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
 import { IoKeySharp } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { registerUserThunk } from "../store/slice/users/user.thunk";
 
@@ -21,6 +21,9 @@ const SignUp = () => {
     // Redux State
     const dispatch = useDispatch();
 
+    // Navigation
+    const navigate = useNavigate();
+
     // For Setting The Values In The State After Input Change
     const handleChange = (e) => {
         setSignupData({
@@ -33,7 +36,8 @@ const SignUp = () => {
     const handleRegister = async (event) => {
         event.preventDefault();
         if (signupData.password !== signupData.confirmPassword) return toast.error("Password and confirm password are not same");
-        dispatch(registerUserThunk(signupData));
+        const response = await dispatch(registerUserThunk(signupData));
+        if (response.payload.success) navigate("/login");
     }
 
 
