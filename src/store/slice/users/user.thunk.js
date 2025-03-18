@@ -32,3 +32,14 @@ export const registerUserThunk = createAsyncThunk("user/register", async ({ full
         return rejectWithValue(errorOutput)
     }
 });
+
+export const logoutUserThunk = createAsyncThunk("user/logout", async (_, { rejectWithValue }) => {
+    try {
+        const response = await axiosInstance.post("/v1/user/logout");
+        return response.data;
+    } catch (error) {
+        const errorOutput = error?.response?.data?.message;
+        toast.error(errorOutput);
+        return rejectWithValue(errorOutput)
+    }
+})
