@@ -17,7 +17,7 @@ const messageSlice = createSlice({
             state.buttonLoading = true;
         });
         builder.addCase(sendMessageThunk.fulfilled, (state, action) => {
-            state.messages = action.payload.newMessage;
+            state.messages = action.payload?.newMessage;
             state.buttonLoading = false;
         });
         builder.addCase(sendMessageThunk.rejected, (state, action) => {
@@ -28,7 +28,7 @@ const messageSlice = createSlice({
             state.loading = true;
         });
         builder.addCase(getMessageThunk.fulfilled, (state, action) => {
-            state.messages = action.payload.conversation.messages;
+            state.messages = action.payload?.conversation?.messages;
             state.loading = false;
         });
         builder.addCase(getMessageThunk.rejected, (state, action) => {

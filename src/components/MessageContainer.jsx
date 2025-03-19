@@ -10,7 +10,7 @@ const MessageContainer = () => {
     // Redux Reducers
     const dispatch = useDispatch();
     const { selectedUser } = useSelector(state => state.userReducer);
-
+    const { messages } = useSelector(state => state.messageReducer);
     // For Fetching Messages
     useEffect(() => {
         if (!selectedUser?._id) return;
@@ -27,9 +27,7 @@ const MessageContainer = () => {
                     </div>
                     {/* Message Part */}
                     <div className='h-full overflow-y-auto p-4'>
-                        <Message />
-                        <Message />
-                        <Message />
+                        {messages?.map((message) => <Message key={message?._id} messageDetails={message} />)}
                     </div>
                     {/* Send Message Input */}
                     <div className='w-full p-2 flex gap-2'>
