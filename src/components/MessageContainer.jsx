@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import User from './User'
 import Message from './Message'
 import { IoIosSend } from 'react-icons/io'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getMessageThunk } from '../store/slice/messages/message.thunk'
 
 const MessageContainer = () => {
+
+    // Redux Reducers
+    const dispatch = useDispatch();
     const { selectedUser } = useSelector(state => state.userReducer);
+
+    // For Fetching Messages
+    useEffect(() => {
+        if (!selectedUser?._id) return;
+        dispatch(getMessageThunk({ participantId: selectedUser?._id }));
+    }, [selectedUser]);
+
     return (
         <div className='w-full h-screen flex flex-col'>
             {/* User Detail */}
