@@ -8,7 +8,7 @@ const initialState = {
     userProfile: null,
     buttonLoading: false,
     otherUsers: null,
-    selectedUser: null,
+    selectedUser: JSON.parse(localStorage.getItem("selectedUser")),
 }
 
 export const userSlice = createSlice({
@@ -16,6 +16,7 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         setSelectedUser: (state, action) => {
+            localStorage.setItem("selectedUser", JSON.stringify(action.payload));
             state.selectedUser = action.payload;
         }
     },
@@ -52,8 +53,11 @@ export const userSlice = createSlice({
         });
         builder.addCase(logoutUserThunk.fulfilled, (state, action) => {
             state.userProfile = null;
+            state.otherUsers = null;
+            state.selectedUser = null;
             state.isAuthenticated = false;
             state.buttonLoading = false;
+            localStorage.removeItem("selectedUser");
             toast.success(action.payload?.message);
         });
         builder.addCase(logoutUserThunk.rejected, (state, action) => {
