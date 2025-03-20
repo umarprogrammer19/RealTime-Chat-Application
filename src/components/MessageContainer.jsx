@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import User from './User'
-import Message from './Message'
-import { IoIosSend } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux'
 import { getMessageThunk } from '../store/slice/messages/message.thunk'
+import Message from './Message'
+import SendMessage from './SendMessage'
+import User from './User'
 
 const MessageContainer = () => {
 
@@ -11,6 +11,7 @@ const MessageContainer = () => {
     const dispatch = useDispatch();
     const { selectedUser } = useSelector(state => state.userReducer);
     const { messages } = useSelector(state => state.messageReducer);
+
     // For Fetching Messages
     useEffect(() => {
         if (!selectedUser?._id) return;
@@ -29,17 +30,9 @@ const MessageContainer = () => {
                     <div className='h-full overflow-y-auto p-4'>
                         {messages?.map((message) => <Message key={message?._id} messageDetails={message} />)}
                     </div>
-                    {/* Send Message Input */}
-                    <div className='w-full p-2 flex gap-2'>
-                        <input
-                            type="text"
-                            placeholder="Type a message here"
-                            className='input input-bordered input-primary w-full'
-                        />
-                        <button className="btn btn-square btn-outline btn-primary text-white">
-                            <IoIosSend />
-                        </button>
-                    </div>
+
+                    {/* Send Message */}
+                    <SendMessage />
                 </div>
             )}
         </>
