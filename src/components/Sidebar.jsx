@@ -9,7 +9,7 @@ const Sidebar = () => {
 
     // Redux Hook
     const dispatch = useDispatch();
-    const { otherUsers } = useSelector(state => state.userReducer);
+    const { otherUsers, userProfile } = useSelector(state => state.userReducer);
 
     // Navigation
     const navigate = useNavigate();
@@ -48,7 +48,7 @@ const Sidebar = () => {
                 {/* Avatar */}
                 <div className="avatar">
                     <div className="ring-primary ring-offset-base-100 w-12 rounded-full ring ring-offset-2">
-                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                        <img src={userProfile?.avatar} />
                     </div>
                 </div>
                 {/* Logout Button */}
