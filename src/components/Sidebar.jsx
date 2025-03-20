@@ -45,11 +45,15 @@ const Sidebar = () => {
             </div>
             {/* Footer */}
             <div className='flex items-center justify-between px-3 py-2'>
-                {/* Avatar */}
-                <div className="avatar">
-                    <div className="ring-primary ring-offset-base-100 w-12 rounded-full ring ring-offset-2">
-                        <img src={userProfile?.avatar} />
+                <div className='flex items-center gap-3'>
+                    {/* Avatar */}
+                    <div className="avatar">
+                        <div className="ring-primary ring-offset-base-100 w-12 rounded-full ring ring-offset-2">
+                            <img src={userProfile?.avatar} />
+                        </div>
                     </div>
+                    {/* Fullname */}
+                    <h2 className='text-lg'>{userProfile?.fullname}</h2>
                 </div>
                 {/* Logout Button */}
                 <button className='btn btn-primary btn-sm px-4' onClick={handleLogout}>Logout</button>
