@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sendMessageThunk } from '../store/slice/messages/message.thunk';
 
 const SendMessage = () => {
-    
+
     // For Getting Message From The Feild
     const [message, setMessage] = useState("");
 
@@ -15,6 +15,7 @@ const SendMessage = () => {
     // Handle Send Message
     const handleSendMessage = async () => {
         dispatch(sendMessageThunk({ message, receiverId: selectedUser._id }));
+        setMessage("");
     }
 
     return (
