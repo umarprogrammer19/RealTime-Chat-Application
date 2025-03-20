@@ -23,7 +23,7 @@ const Sidebar = () => {
 
     // For Rendering Other Users Profile
     useEffect(() => {
-        (async () => dispatch(getOtherUserProfileThunk()))()
+        (async () => await dispatch(getOtherUserProfileThunk()))()
     }, []);
 
     return (
