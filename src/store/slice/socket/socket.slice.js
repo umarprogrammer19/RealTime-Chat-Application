@@ -3,6 +3,7 @@ import io from "socket.io-client";
 
 const initialState = {
     socket: null,
+    onlineUsers: null,
 };
 
 export const socketSlice = createSlice({
@@ -29,9 +30,12 @@ export const socketSlice = createSlice({
 
             state.socket = socket;
         },
+        setOnlineUsers: (state, action) => {
+            state.onlineUsers = action.payload;
+        }
     },
 });
 
-export const { initializeSocket } = socketSlice.actions;
+export const { initializeSocket, setOnlineUsers } = socketSlice.actions;
 
 export default socketSlice.reducer;
