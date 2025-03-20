@@ -19,6 +19,6 @@ export const socketSlice = createSlice({
     },
 });
 
-export const { } = socketSlice.actions;
+export const { initializeSocket } = socketSlice.actions;
 
 export default socketSlice.reducer;
