@@ -2,15 +2,17 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { getOtherUserProfileThunk, getUserProfileThunk } from './store/slice/users/user.thunk';
+import { getUserProfileThunk } from './store/slice/users/user.thunk';
 
 const Layout = () => {
+    // Redux Hook
     const dispatch = useDispatch();
 
+    // For Getting Profile
     useEffect(() => {
-        dispatch(getUserProfileThunk());
-        dispatch(getOtherUserProfileThunk());
-    }, [])
+        (async () => await dispatch(getUserProfileThunk()))()
+    }, []);
+    
     return (
         <>
             <ToastContainer />
