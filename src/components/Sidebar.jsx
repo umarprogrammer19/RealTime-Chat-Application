@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logoutUserThunk } from '../store/slice/users/user.thunk';
+import { getOtherUserProfileThunk, logoutUserThunk } from '../store/slice/users/user.thunk';
 import User from './User';
 
 const Sidebar = () => {
+
     // Redux Hook
     const dispatch = useDispatch();
     const { otherUsers } = useSelector(state => state.userReducer);
+
     // Navigation
     const navigate = useNavigate();
 
@@ -18,6 +20,11 @@ const Sidebar = () => {
         const response = await dispatch(logoutUserThunk());
         if (response.payload.success) navigate("/login");
     }
+
+    // For Rendering Other Users Profile
+    useEffect(() => {
+        (async () => dispatch(getOtherUserProfileThunk()))()
+    }, []);
 
     return (
         <div className='max-w-[20rem] h-screen w-full flex flex-col border-r border-r-white/10'>
