@@ -6,10 +6,13 @@ const User = ({ user }) => {
     // Redux State 
     const dispatch = useDispatch();
     const { selectedUser } = useSelector(state => state.userReducer);
+    const { onlineUsers } = useSelector(state => state.socketReducer);
+    const isUserOnline = onlineUsers?.includes(user._id);
+
 
     return (
         <div onClick={() => dispatch(setSelectedUser(user))} className={`flex gap-5 items-center hover:bg-gray-700 p-1 cursor-pointer ${user?._id === selectedUser?._id && "bg-gray-700"}`}>
-            <div className="avatar avatar-online">
+            <div className={`avatar ${isUserOnline ? "avatar-online" : ""}`}>
                 <div className="w-12 rounded-full">
                     <img src={user?.avatar || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"} />
                 </div>
