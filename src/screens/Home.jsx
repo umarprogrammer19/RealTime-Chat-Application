@@ -22,7 +22,11 @@ const Home = () => {
         if (!socket) return;
         socket.on("onlineUsers", (onlineUsers) => {
             dispatch(setOnlineUsers(onlineUsers));
-        })
+        });
+
+        return () => {
+            socket.close();
+        }
     }, [socket])
 
     return (
