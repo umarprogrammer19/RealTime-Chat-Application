@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +6,10 @@ import { getOtherUserProfileThunk, logoutUserThunk } from '../store/slice/users/
 import User from './User';
 
 const Sidebar = () => {
+
+    // States
+    const [searchValue, setSearchValue] = useState("");
+    const [users, setUsers] = useState([]);
 
     // Redux Hook
     const dispatch = useDispatch();
@@ -21,6 +25,12 @@ const Sidebar = () => {
         if (response.payload.success) navigate("/login");
     }
 
+    // For Search
+    useEffect(() => {
+        if (!searchValue) setUsers(otherUsers);
+        else setUsers(otherUsers.filter(user => user.fullname.toLowerCase().includes(searchValue.toLowerCase()) || user.username.toLowerCase().includes(searchValue.toLowerCase())));
+    }, [searchValue])
+
     // For Rendering Other Users Profile
     useEffect(() => {
         (async () => await dispatch(getOtherUserProfileThunk()))()
@@ -33,13 +43,13 @@ const Sidebar = () => {
             {/* Search Bar */}
             <div className='p-3'>
                 <label className="input input-bordered flex items-center gap-2">
-                    <input type="search" className='grow' required placeholder="Search" />
+                    <input onChange={(e) => setSearchValue(e.target.value)} value={searchValue} type="search" className='grow' required placeholder="Search" />
                     <IoSearch />
                 </label>
             </div>
             {/* Rendered Users */}
             <div className='h-full overflow-y-auto px-3 flex flex-col gap-2'>
-                {otherUsers?.map((user) => {
+                {users?.map((user) => {
                     return <User key={user._id} user={user} />
                 })}
             </div>
