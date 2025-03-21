@@ -14,7 +14,7 @@ const SendMessage = () => {
 
     // Handle Send Message
     const handleSendMessage = async () => {
-        dispatch(sendMessageThunk({ message, receiverId: selectedUser._id }));
+        await dispatch(sendMessageThunk({ message, receiverId: selectedUser._id }));
         setMessage("");
     }
 
@@ -24,6 +24,7 @@ const SendMessage = () => {
                 type="text"
                 placeholder="Type a message here"
                 className='input input-bordered input-primary w-full'
+                value={message}
                 onChange={(e) => setMessage(e.target.value)}
             />
             <button
