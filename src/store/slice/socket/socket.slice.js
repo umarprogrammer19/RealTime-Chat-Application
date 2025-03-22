@@ -30,6 +30,7 @@ export const socketSlice = createSlice({
 
             state.socket = socket;
         },
+        // For Online Users
         setOnlineUsers: (state, action) => {
             state.onlineUsers = action.payload;
         }
