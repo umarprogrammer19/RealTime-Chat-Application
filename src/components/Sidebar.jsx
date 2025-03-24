@@ -43,7 +43,16 @@ const Sidebar = () => {
     return (
         <div className='max-w-[20rem] h-screen w-full flex flex-col border-r border-r-white/10'>
             {/* Gupshup Heading */}
-            <h1 className='mx-3 mt-3 rounded-lg px-2 py-1 text-primary text-xl font-semibold'>Gupshup</h1>
+            <div className='flex justify-between items-center mx-3 mt-3 px-2 py-1'>
+                <h1 className=' rounded-lg text-primary text-xl font-semibold'>Gupshup</h1>
+                <div className="dropdown">
+                    <div tabIndex={0} role="button" className="btn btn-primary btn-sm px-4">Settings</div>
+                    <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                        <li><a>New Group</a></li>
+                        <li><a>Profile</a></li>
+                    </ul>
+                </div>
+            </div>
             {/* Search Bar */}
             <div className='p-3'>
                 <label className="input input-bordered flex items-center gap-2">
