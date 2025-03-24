@@ -10,7 +10,7 @@ const MessageContainer = () => {
     // Redux Reducers
     const dispatch = useDispatch();
     const { selectedUser } = useSelector(state => state.userReducer);
-    const { messages } = useSelector(state => state.messageReducer);
+    const { messages, loading } = useSelector(state => state.messageReducer);
 
     // For Fetching Messages
     useEffect(() => {
@@ -27,9 +27,11 @@ const MessageContainer = () => {
                         <User user={selectedUser} />
                     </div>
                     {/* Message Part */}
-                    <div className='h-full overflow-y-auto p-4'>
+                    {loading ? <div className='w-full h-full flex justify-center items-center'>
+                        <span className="loading loading-xl loading-spinner text-primary"></span>
+                    </div> : <div className='h-full overflow-y-auto p-4'>
                         {messages?.map((message) => <Message key={message?._id} messageDetails={message} />)}
-                    </div>
+                    </div>}
 
                     {/* Send Message */}
                     <SendMessage />
