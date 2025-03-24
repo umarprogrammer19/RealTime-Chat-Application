@@ -13,7 +13,7 @@ const Sidebar = () => {
 
     // Redux Hook
     const dispatch = useDispatch();
-    const { otherUsers, userProfile } = useSelector(state => state.userReducer);
+    const { otherUsers, userProfile, screenLoading } = useSelector(state => state.userReducer);
 
     // Navigation
     const navigate = useNavigate();
@@ -53,11 +53,13 @@ const Sidebar = () => {
                 </label>
             </div>
             {/* Rendered Users */}
-            <div className='h-full overflow-y-auto px-3 flex flex-col gap-2'>
+            {screenLoading ? <div className='w-full h-full flex justify-center items-center'>
+                <span className="loading loading-xl loading-spinner text-primary"></span>
+            </div> : <div className='h-full overflow-y-auto px-3 flex flex-col gap-2'>
                 {users?.map((user) => {
                     return <User key={user._id} user={user} />
                 })}
-            </div>
+            </div>}
             {/* Footer */}
             <div className='flex items-center justify-between px-3 py-2'>
                 <div className='flex items-center gap-3'>
