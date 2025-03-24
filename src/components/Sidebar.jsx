@@ -21,20 +21,25 @@ const Sidebar = () => {
     // Logout Function
     const handleLogout = async (event) => {
         event.preventDefault();
-        const response = await dispatch(logoutUserThunk());
-        if (response.payload.success) navigate("/login");
-    }
+        try {
+            const response = await dispatch(logoutUserThunk());
+            if (response.payload.success) navigate("/login");
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
+
+
+    // For Rendering Other Users Profile
+    useEffect(() => {
+        (async () => await dispatch(getOtherUserProfileThunk()))()
+    }, [dispatch]);
 
     // For Search
     useEffect(() => {
         if (!searchValue) setUsers(otherUsers);
         else setUsers(otherUsers.filter(user => user.fullname.toLowerCase().includes(searchValue.toLowerCase()) || user.username.toLowerCase().includes(searchValue.toLowerCase())));
-    }, [searchValue])
-
-    // For Rendering Other Users Profile
-    useEffect(() => {
-        (async () => await dispatch(getOtherUserProfileThunk()))()
-    }, []);
+    }, [searchValue, otherUsers])
 
     return (
         <div className='max-w-[20rem] h-screen w-full flex flex-col border-r border-r-white/10'>
