@@ -13,7 +13,7 @@ const Sidebar = () => {
 
     // Redux Hook
     const dispatch = useDispatch();
-    const { otherUsers, userProfile } = useSelector(state => state.userReducer);
+    const { otherUsers, userProfile, screenLoading } = useSelector(state => state.userReducer);
 
     // Navigation
     const navigate = useNavigate();
@@ -21,25 +21,38 @@ const Sidebar = () => {
     // Logout Function
     const handleLogout = async (event) => {
         event.preventDefault();
-        const response = await dispatch(logoutUserThunk());
-        if (response.payload.success) navigate("/login");
-    }
+        try {
+            const response = await dispatch(logoutUserThunk());
+            if (response.payload.success) navigate("/login");
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
+
+    // For Rendering Other Users Profile
+    useEffect(() => {
+        (async () => await dispatch(getOtherUserProfileThunk()))()
+    }, [dispatch]);
 
     // For Search
     useEffect(() => {
         if (!searchValue) setUsers(otherUsers);
         else setUsers(otherUsers.filter(user => user.fullname.toLowerCase().includes(searchValue.toLowerCase()) || user.username.toLowerCase().includes(searchValue.toLowerCase())));
-    }, [searchValue])
-
-    // For Rendering Other Users Profile
-    useEffect(() => {
-        (async () => await dispatch(getOtherUserProfileThunk()))()
-    }, []);
+    }, [searchValue, otherUsers])
 
     return (
         <div className='max-w-[20rem] h-screen w-full flex flex-col border-r border-r-white/10'>
             {/* Gupshup Heading */}
-            <h1 className='mx-3 mt-3 rounded-lg px-2 py-1 text-primary text-xl font-semibold'>Gupshup</h1>
+            <div className='flex justify-between items-center mx-3 mt-3 px-2 py-1'>
+                <h1 className=' rounded-lg text-primary text-xl font-semibold'>Gupshup</h1>
+                <div className="dropdown">
+                    <div tabIndex={0} role="button" className="btn btn-primary btn-sm px-4">Settings</div>
+                    <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                        <li><a>New Group</a></li>
+                        <li><a>Profile</a></li>
+                    </ul>
+                </div>
+            </div>
             {/* Search Bar */}
             <div className='p-3'>
                 <label className="input input-bordered flex items-center gap-2">
@@ -48,11 +61,13 @@ const Sidebar = () => {
                 </label>
             </div>
             {/* Rendered Users */}
-            <div className='h-full overflow-y-auto px-3 flex flex-col gap-2'>
+            {screenLoading ? <div className='w-full h-full flex justify-center items-center'>
+                <span className="loading loading-xl loading-spinner text-primary"></span>
+            </div> : <div className='h-full overflow-y-auto px-3 flex flex-col gap-2'>
                 {users?.map((user) => {
                     return <User key={user._id} user={user} />
                 })}
-            </div>
+            </div>}
             {/* Footer */}
             <div className='flex items-center justify-between px-3 py-2'>
                 <div className='flex items-center gap-3'>
